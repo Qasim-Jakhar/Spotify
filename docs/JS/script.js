@@ -6,8 +6,8 @@ let currFolder;
 let ele = document.querySelector(".playlist")
 
 async function getSongs(folder) {
-  // console.trace("loadFile called with URL:", `http://127.0.0.1:5500/${folder}/`);
-  let a = await fetch(`http://127.0.0.1:5500/${folder}/`);
+  // console.trace("loadFile called with URL:", `/${folder}/`);
+  let a = await fetch(`/${folder}/`);
   let response = await a.text();
 
   let div = document.createElement("div")
@@ -154,12 +154,12 @@ play.addEventListener("click", ()=>{
   // Add event listener to volume track
 document.querySelector(".volume>img").addEventListener("click",e=>{
   if (e.target.src.includes("volume.svg")) {
-    e.target.src = "http://127.0.0.1:5500/img/mute.svg"
+    e.target.src = "/img/mute.svg"
     currentSong.volume = 0;
     document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
   }
   else{
-    e.target.src = "http://127.0.0.1:5500/img/volume.svg"
+    e.target.src = "/img/volume.svg"
     currentSong.volume = .1
     document.querySelector(".range").getElementsByTagName("input")[0].value = 10
   }
@@ -190,7 +190,7 @@ function changeDisplay() {
 }
 
 async function displayAlbums() {
-   let a = await fetch(`http://127.0.0.1:5500/songs/`);
+   let a = await fetch(`/songs/`);
   let response = await a.text();
   let div = document.createElement("div")
   div.innerHTML = response;
@@ -205,7 +205,7 @@ async function displayAlbums() {
       // Get the metadata of each folder
 
       if (folder != "songs") {
-         let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
+         let a = await fetch(`/songs/${folder}/info.json`);
     let response = await a.json();
       cardContainer.insertAdjacentHTML("beforeend", `
   <div class="card flex column" data-folder="${folder}" id="card">
@@ -330,4 +330,12 @@ function back() {
 if (document.body.clientWidth < 1007 && document.body.clientWidth > 769) {
   document.querySelector(".play-pod").style.height = "50vh"
 }
+
+
+
+
+if (document.body.clientWidth < 1007 && document.body.clientWidth > 769) {
+  document.querySelector(".play-pod").style.height = "50vh"
+}
+
 
