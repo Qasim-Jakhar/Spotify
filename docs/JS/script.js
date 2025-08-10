@@ -7,7 +7,7 @@ let ele = document.querySelector(".playlist")
 
 async function getSongs(folder) {
   // console.trace("loadFile called with URL:", `/${folder}/`);
-  let a = await fetch(`/${folder}/`);
+  let a = await fetch(`https://vercel.com/qasim-jakhars-projects/spotify/${folder}/`);
   let response = await a.text();
 
   let div = document.createElement("div")
@@ -190,7 +190,7 @@ function changeDisplay() {
 }
 
 async function displayAlbums() {
-   let a = await fetch(`/songs/`);
+   let a = await fetch(`https://vercel.com/qasim-jakhars-projects/spotify/songs/`);
   let response = await a.text();
   let div = document.createElement("div")
   div.innerHTML = response;
@@ -200,12 +200,12 @@ async function displayAlbums() {
     for (let i = 0; i < array.length; i++) {
       const e = array[i];
       
-    if (e.href.includes("/songs")) {
+    if (e.href.includes("/songs") && !e.href.includes(".htaccess")) {
       let folder = e.href.split("/").slice(-1)[0]
       // Get the metadata of each folder
 
       if (folder != "songs") {
-         let a = await fetch(`/songs/${folder}/info.json`);
+         let a = await fetch(`https://vercel.com/qasim-jakhars-projects/spotify/songs/${folder}/info.json`);
     let response = await a.json();
       cardContainer.insertAdjacentHTML("beforeend", `
   <div class="card flex column" data-folder="${folder}" id="card">
@@ -330,12 +330,4 @@ function back() {
 if (document.body.clientWidth < 1007 && document.body.clientWidth > 769) {
   document.querySelector(".play-pod").style.height = "50vh"
 }
-
-
-
-
-if (document.body.clientWidth < 1007 && document.body.clientWidth > 769) {
-  document.querySelector(".play-pod").style.height = "50vh"
-}
-
 
