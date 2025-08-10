@@ -7,7 +7,7 @@ let ele = document.querySelector(".playlist")
 
 async function getSongs(folder) {
   // console.trace("loadFile called with URL:", `/${folder}/`);
-  let a = await fetch(`https://spotify-topaz-chi.vercel.app/${folder}/`);
+  let a = await fetch(`https://spotify-6xdj.vercel.app/${folder}/`);
   let response = await a.text();
 
   let div = document.createElement("div")
@@ -190,7 +190,7 @@ function changeDisplay() {
 }
 
 async function displayAlbums() {
-   let a = await fetch(`https://spotify-topaz-chi.vercel.app/songs/`);
+   let a = await fetch(`https://spotify-6xdj.vercel.app/songs/`);
   let response = await a.text();
   let div = document.createElement("div")
   div.innerHTML = response;
@@ -205,7 +205,7 @@ async function displayAlbums() {
       // Get the metadata of each folder
 
       if (folder != "songs") {
-         let a = await fetch(`https://spotify-topaz-chi.vercel.app/songs/${folder}/info.json`);
+         let a = await fetch(`https://spotify-6xdj.vercel.app/songs/${folder}/info.json`);
     let response = await a.json();
       cardContainer.insertAdjacentHTML("beforeend", `
   <div class="card flex column" data-folder="${folder}" id="card">
@@ -330,5 +330,6 @@ function back() {
 if (document.body.clientWidth < 1007 && document.body.clientWidth > 769) {
   document.querySelector(".play-pod").style.height = "50vh"
 }
+
 
 
