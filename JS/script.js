@@ -7,7 +7,7 @@ let ele = document.querySelector(".playlist")
 
 async function getSongs(folder) {
   // Make sure to point to the correct folder path in your deployed site
-  let a = await fetch(`/songs/${folder}/`);
+  let a = await fetch(`/${folder}/`);
   let response = await a.text();
 
   let div = document.createElement("div");
@@ -325,6 +325,7 @@ function back() {
 if (document.body.clientWidth < 1007 && document.body.clientWidth > 769) {
   document.querySelector(".play-pod").style.height = "50vh"
 }
+
 
 
 
