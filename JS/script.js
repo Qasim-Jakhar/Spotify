@@ -190,42 +190,29 @@ function changeDisplay() {
 }
 
 async function displayAlbums() {
-   let a = await fetch(`/songs/`);
-  let response = await a.text();
-  let div = document.createElement("div")
-  div.innerHTML = response;
-  let anchors = div.getElementsByTagName("a")
-  let cardContainer = document.querySelector(".songCards")
- let array =  Array.from(anchors)
-    for (let i = 0; i < array.length; i++) {
-      const e = array[i];
-      
-    if (e.href.includes("/songs") && !e.href.includes(".htaccess")) {
-      let folder = e.href.split("/").slice(-1)[0]
-      // Get the metadata of each folder
+  let albums = await fetch("/songs/index.json").then(res => res.json());
 
-      if (folder != "songs") {
-         let a = await fetch(`/songs/${folder}/info.json`);
-    let response = await a.json();
-      cardContainer.insertAdjacentHTML("beforeend", `
-  <div class="card flex column" data-folder="${folder}" id="card">
-    <button id="play-button" class="play-button no-border flex justify-center align-center">
-      <img src="/img/play.svg" alt="Play">
-    </button>
-    <div class="image-card">
-    <img src="/songs/${folder}/cover.jpg" alt="image">
+for (let folder of albums) {
+  let info = await fetch(`/songs/${folder}/info.json`).then(res => res.json());
+
+  cardContainer.insertAdjacentHTML("beforeend", `
+    <div class="card flex column" data-folder="${folder}" id="card">
+      <button id="play-button" class="play-button no-border flex justify-center align-center">
+        <img src="/img/play.svg" alt="Play">
+      </button>
+      <div class="image-card">
+        <img src="/songs/${folder}/cover.jpg" alt="image">
+      </div>
+      <span class="card-child">
+        <a href="#f">${info.title}</a>
+      </span>
+      <span class="flex artist">
+        <a href="/artist/4f7KfxeHq9BiylGmyXepGt">${info.description}</a>
+      </span>
     </div>
-    <span class="card-child">
-      <a href="#f">${response.title}</a>
-    </span>
-    <span class="flex artist">
-      <a href="/artist/4f7KfxeHq9BiylGmyXepGt">${response.description}</a>
-    </span>
-  </div>
-`);
-      }
-    }
-  }
+  `);
+}
+
 Array.from(document.getElementsByClassName("card")).forEach(e => {
   e.addEventListener("click", async (item) => {
     await getSongs(`songs/${item.currentTarget.dataset.folder}`)
