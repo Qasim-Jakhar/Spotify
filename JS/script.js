@@ -6,24 +6,32 @@ let currFolder;
 let ele = document.querySelector(".playlist")
 
 async function getSongs(folder) {
-  // console.trace("loadFile called with URL:", `/${folder}/`);
-  let a = await fetch(`/${folder}/`);
+  // Make sure to point to the correct folder path in your deployed site
+  let a = await fetch(`/songs/${folder}/`);
   let response = await a.text();
 
-  let div = document.createElement("div")
+  let div = document.createElement("div");
   div.innerHTML = response;
+
   let as = div.getElementsByTagName("a");
   songs = [];
+
   for (let index = 0; index < as.length; index++) {
     const element = as[index];
     if (element.href.endsWith(".mp3")) {
-      songs.push(element.href.split(`/${folder}/`)[1].replaceAll("%20", " "))
+      songs.push(
+        element.href
+          .split(`/songs/${folder}/`)[1]
+          .replaceAll("%20", " ")
+      );
     }
-    
   }
-  currFolder = folder;
+
+  // Update currFolder so other functions can use the correct path
+  currFolder = `/songs/${folder}`;
   return songs;
 }
+
 
 
 //Attach an event listener to each song element
@@ -317,5 +325,6 @@ function back() {
 if (document.body.clientWidth < 1007 && document.body.clientWidth > 769) {
   document.querySelector(".play-pod").style.height = "50vh"
 }
+
 
 
