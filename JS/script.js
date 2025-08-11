@@ -194,7 +194,7 @@ async function displayAlbums() {
 
 for (let folder of albums) {
   let info = await fetch(`/songs/${folder}/info.json`).then(res => res.json());
-
+let cardContainer = document.querySelector(".cardContainer")
   cardContainer.insertAdjacentHTML("beforeend", `
     <div class="card flex column" data-folder="${folder}" id="card">
       <button id="play-button" class="play-button no-border flex justify-center align-center">
@@ -317,4 +317,5 @@ function back() {
 if (document.body.clientWidth < 1007 && document.body.clientWidth > 769) {
   document.querySelector(".play-pod").style.height = "50vh"
 }
+
 
