@@ -21,14 +21,14 @@ async function getSongs(folder) {
     if (element.href.endsWith(".mp3")) {
       songs.push(
         element.href
-          .split(`/songs/${folder}/`)[1]
+          .split(`/${folder}/`)[1]
           .replaceAll("%20", " ")
       );
     }
   }
 
   // Update currFolder so other functions can use the correct path
-  currFolder = `/songs/${folder}`;
+  currFolder = folder;
   return songs;
 }
 
@@ -325,6 +325,7 @@ function back() {
 if (document.body.clientWidth < 1007 && document.body.clientWidth > 769) {
   document.querySelector(".play-pod").style.height = "50vh"
 }
+
 
 
 
